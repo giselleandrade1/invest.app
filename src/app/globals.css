@@ -137,20 +137,81 @@ tbody tr:nth-child(even) {
 .btn:active { transform: translateY(1px); }
 
 /* small control buttons used for column reorder/visibility */
+
 .btn-small {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--foreground);
   padding: 0.25rem 0.45rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
   cursor: pointer;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
 .controls-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
   margin-bottom: 0.75rem;
 }
-.controls-row .group { display: flex; gap: 0.5rem; align-items: center; }
+
+/* First group contains the column buttons: distribute them evenly using grid */
+.controls-row .group:first-child {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.controls-row .group:not(:first-child) {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Make buttons inside the grid fill their cell */
+.controls-row .group:first-child button,
+.controls-row .group:first-child .btn-small {
+  width: 100%;
+  height: 40px;
+  min-width: 0;
+}
+
+/* Responsive adjustments: smaller min width on narrow screens */
+@media (max-width: 720px) {
+  .controls-row .group:first-child {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.4rem;
+  }
+  .controls-row .group:first-child button,
+  .controls-row .group:first-child .btn-small { height: 36px; }
+}
+
+
+/* focus state for accessibility */
+.btn-small:focus, .controls-row button:focus, .btn:focus {
+  /* Accent rgba fallback (approx for --accent: #0b63d6 => rgb(11,99,214)) */
+  outline: 3px solid rgba(11,99,214,0.22);
+  outline-offset: 2px;
+}
+
+/* Hide Next.js devtools indicator/button injected in development mode */
+/* This targets the overlay/indicator elements without modifying Next internals. */
+#next-logo,
+[data-next-badge],
+[data-nextjs-dev-tools-button],
+button[data-nextjs-dev-tools-button] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
 

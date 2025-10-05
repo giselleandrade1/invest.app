@@ -12,12 +12,14 @@
 }
 
 .header-inner {
-  max-width: 1100px;
+  max-width: 1152px;
+  width: 100%;
   margin: 0 auto;
   padding: 0.6rem 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
+  justify-content: space-between;
 }
 
 .logo {
@@ -146,6 +148,37 @@
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
+}
+
+/* Footer bar - reuse header design for a consistent responsive bar */
+.site-footer {
+  background: var(--surface);
+  color: var(--foreground);
+  border-top: 1px solid var(--border);
+  position: relative;
+  bottom: 0;
+  z-index: 30;
+  width: 100%;
+}
+
+.site-footer .header-inner {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.site-footer .footer-text {
+  text-align: center;
+}
+
+.header-inner > .footer-text {
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .header-inner { flex-direction: column; align-items: center; }
+  .header-inner > .footer-text { margin-left: 0; margin-top: 0.5rem; }
 }
 
 /* Responsive rules */

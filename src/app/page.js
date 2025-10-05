@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+// Using inline SVG icons for a compact, consistent look
 
 export default function Home() {
 
@@ -89,7 +90,6 @@ export default function Home() {
       <main className="flex flex-col gap-[24px] row-start-2 w-full">
         <section className="w-full max-w-6xl mx-auto text-center">
           <h1 className="text-lg font-semibold">Demo do Header</h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Use a barra de busca, filtros e o botão de tema no topo para testar o componente responsivo.</p>
         </section>
         {/* Responsive table for dailyEquityByPortfolioChartData */}
         <section className="w-full max-w-6xl p-4 rounded mx-auto card">
@@ -116,8 +116,8 @@ export default function Home() {
             }
 
             const movementLabel = (id) => {
-              const map = { 0: 'No movement', 1: 'Movement' };
-              return map[id] ?? `Type ${id}`;
+              const map = { 0: 'Sem movimentação', 1: 'Com movimentação' };
+              return map[id] ?? `Tipo ${id}`;
             };
 
             const formatDate = (unix) => {
@@ -133,15 +133,30 @@ export default function Home() {
                 {/* Desktop table */}
                 <div className="controls-row">
                   <div className="group">
-                    <label className="muted-text">Colunas:</label>
                     {columns.map((c, idx) => (
-                      <button key={c.key} className="btn-small" onClick={() => toggleColumn(c.key)}>
-                        {c.visible ? `👁 ${c.label}` : `🚫 ${c.label}`}
+                      <button
+                        key={c.key}
+                        className="btn-small"
+                        onClick={() => toggleColumn(c.key)}
+                        aria-pressed={c.visible}
+                        aria-label={`${c.visible ? 'Ocultar' : 'Mostrar'} coluna ${c.label}`}
+                      >
+                        {c.visible ? (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                            <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <circle cx="12" cy="12" r="2.4" fill="currentColor" />
+                          </svg>
+                        ) : (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                            <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M8 8l8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                        <span style={{ marginLeft: 8 }}>{c.label}</span>
                       </button>
                     ))}
                   </div>
                   <div className="group">
-                    <label className="muted-text">Arrastar para reordenar colunas</label>
                   </div>
                 </div>
 
@@ -203,37 +218,45 @@ export default function Home() {
           })()}
         </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://www.linkedin.com/in/giselleandrades2/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/linkedin.svg"
-            alt="LinkedIn icon"
-            width={16}
-            height={16}
-          />
-          LinkedIn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://github.com/giselleandrade1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/github.svg"
-            alt="GitHub icon"
-            width={16}
-            height={16}
-          />
-          GitHub→
-        </a>
+      <footer className="site-footer row-start-3">
+        <div className="header-inner">
+          <div className="flex items-center gap-4">
+            <a
+              className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+              href="https://www.linkedin.com/in/giselleandrades2/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                aria-hidden
+                src="/linkedin.svg"
+                alt="LinkedIn icon"
+                width={16}
+                height={16}
+              />
+              <span className="muted-text">LinkedIn</span>
+            </a>
+            <a
+              className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+              href="https://github.com/giselleandrade1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                aria-hidden
+                src="/github.svg"
+                alt="GitHub icon"
+                width={16}
+                height={16}
+              />
+              <span className="muted-text">GitHub→</span>
+            </a>
+          </div>
+
+          <div className="footer-text">
+            <p className="text-sm muted-text">©2025 Developer by Giselle Andrade | Todos os direitos reservados.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
