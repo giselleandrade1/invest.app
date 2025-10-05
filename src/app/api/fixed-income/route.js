@@ -1,9 +1,8 @@
-import fetch from 'node-fetch';
-
 const MOCK_URL = 'https://6270328d6a36d4d62c16327c.mockapi.io/getFixedIncomeClassData';
 
 export async function GET() {
     try {
+        // Use the global `fetch` available in Next.js runtime instead of node-fetch
         const res = await fetch(MOCK_URL, { method: 'GET' });
         if (!res.ok) {
             return new Response(JSON.stringify({ error: 'Upstream fetch failed', status: res.status }), {

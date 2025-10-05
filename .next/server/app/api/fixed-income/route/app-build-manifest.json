@@ -1,0 +1,10 @@
+{
+  "pages": {
+    "/api/fixed-income/route": [
+      "static/chunks/e6b956db2c2e7c9a.js",
+      "static/chunks/6c1d949039ca8e4a.js",
+      "static/chunks/47f477e3d2ef265b.js",
+      "static/chunks/turbopack-49edcbc4f5ac4ee0.js"
+    ]
+  }
+}
